@@ -30,10 +30,15 @@ export default {
           .error('Por favor insere um ano válido.'),
     },
     {
-      name: 'placeholderImage',
-      title: 'Imagem Placeholder',
-      type: 'image',
-      options: {hotspot: true},
+      name: 'hoverPair',
+      title: 'Imagens para Hover (2 imagens)',
+      type: 'array',
+      of: [{type: 'image', options: {hotspot: true}}],
+      validation: (Rule) =>
+        Rule.required().min(2).max(2).error('Deves escolher exatamente 2 imagens.'),
+      options: {
+        layout: 'grid',
+      },
     },
     {
       name: 'gallery',
@@ -54,15 +59,14 @@ export default {
   preview: {
     select: {
       title: 'title',
-      media: 'placeholderImage',
+      media: 'hoverPair.0', 
       year: 'year',
     },
-    prepare(selection) {
-      const {title, media, year} = selection
+    prepare({title, media, year}) {
       return {
-        title: title,
-        subtitle: year ? ` ${year}` : 'Sem ano definido',
-        media: media,
+        title,
+        subtitle: year ? `${year}` : 'Sem ano definido',
+        media,
       }
     },
   },

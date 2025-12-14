@@ -55,11 +55,23 @@ export default {
       type: 'blockContent',
     },
   ],
+  orderings: [
+    {
+      title: 'Ano (mais recente → mais antigo)',
+      name: 'yearDesc',
+      by: [{field: 'year', direction: 'desc'}],
+    },
+    {
+      title: 'Ano (mais antigo → mais recente)',
+      name: 'yearAsc',
+      by: [{field: 'year', direction: 'asc'}],
+    },
+  ],
 
   preview: {
     select: {
       title: 'title',
-      media: 'hoverPair.0', 
+      media: 'hoverPair.0',
       year: 'year',
     },
     prepare({title, media, year}) {

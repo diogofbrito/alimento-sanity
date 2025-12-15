@@ -1,8 +1,8 @@
 import projetos from './projetos'
 import about from './about'
-import lostFound from './lostFound'
+import carouselHome from './carouselHome'
 import blockContent from './blockContent'
 import press from './press'
 import imaisd from './imaisd'
 
-export const schemaTypes = [projetos, imaisd,about, press, lostFound, blockContent]
+export const schemaTypes = [projetos, imaisd,about, press, carouselHome, blockContent]

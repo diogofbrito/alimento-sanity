@@ -35,6 +35,14 @@ export default {
           scheme: ['http', 'https'],
         }).required(),
     },
+    {
+      name: 'pdf',
+      title: 'PDF da publicação',
+      type: 'file',
+      options: {
+        accept: 'application/pdf',
+      },
+    },
   ],
 
   preview: {

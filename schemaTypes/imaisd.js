@@ -3,92 +3,79 @@ export default {
   title: 'I + D',
   type: 'document',
   fields: [
-    {
-      name: 'title',
-      title: 'Título',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    },
+    {name: 'title', title: 'Título', type: 'string', validation: (Rule) => Rule.required()},
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
+      options: {source: 'title', maxLength: 96},
       validation: (Rule) => Rule.required(),
     },
+    {name: 'year', title: 'Ano', type: 'number'},
     {
-      name: 'year',
-      title: 'Ano',
-      type: 'number',
-    },
-    {
-      name: 'placeholderImage',
-      title: 'Imagem Placeholder',
+      name: 'coverImage',
+      title: 'Imagem de capa da publicação',
       type: 'image',
       options: {hotspot: true},
     },
     {
-      name: 'gallery',
-      title: 'Galeria de Imagens',
-      type: 'array',
-      of: [{type: 'image'}],
+      name: 'pdf',
+      title: 'PDF da publicação',
+      type: 'file',
       options: {
-        layout: 'grid',
+        accept: 'application/pdf',
       },
     },
 
     {
-      name: 'description',
-      title: 'Descrição',
-      type: 'blockContent',
-    },
-    {
-      name: 'ingredients',
-      title: 'Ingredientes',
+      name: 'gallery',
+      title: 'Galeria (imagem + ingredientes)',
       type: 'array',
       of: [
         {
+          name: 'galleryItem',
+          title: 'Item',
           type: 'object',
           fields: [
-            {name: 'quantity', title: 'Quantidade', type: 'string'},
-            {name: 'item', title: 'Ingrediente', type: 'string'},
-            {name: 'note', title: 'Nota (opcional)', type: 'string'},
+            {
+              name: 'image',
+              title: 'Imagem',
+              type: 'image',
+              options: {hotspot: true},
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'title',
+              title: 'Título desta imagem',
+              type: 'blockContent',
+            },
           ],
+          preview: {
+            select: {media: 'image', title: 'title'},
+            prepare({media, title}) {
+              const text = Array.isArray(title)
+                ? title
+                    .filter((b) => b?._type === 'block')
+                    .map((b) => (b.children || []).map((ch) => ch.text).join(''))
+                    .join(' ')
+                    .trim()
+                : ''
+
+              return {media, title: text || 'Imagem'}
+            },
+          },
         },
       ],
+      options: {layout: 'grid'},
     },
-    {
-      name: 'preparation',
-      title: 'Preparação',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {name: 'stepNumber', title: 'Passo', type: 'number'},
-            {name: 'instruction', title: 'Instrução', type: 'text'},
-          ],
-        },
-      ],
-    },
+
+    {name: 'description', title: 'Descrição', type: 'blockContent'},
   ],
 
   preview: {
-    select: {
-      title: 'title',
-      media: 'placeholderImage',
-      year: 'year',
-    },
-    prepare(selection) {
-      const {title, media, year} = selection
-      return {
-        title: title,
-        subtitle: year ? ` ${year}` : 'Sem ano definido',
-        media: media,
-      }
+    select: {title: 'title', media: 'gallery.0.image', year: 'year'},
+    prepare({title, media, year}) {
+      return {title, subtitle: year ? `${year}` : 'Sem ano definido', media}
     },
   },
 }

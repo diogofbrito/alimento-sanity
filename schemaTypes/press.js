@@ -30,10 +30,7 @@ export default {
       name: 'link',
       title: 'Link',
       type: 'url',
-      validation: (Rule) =>
-        Rule.uri({
-          scheme: ['http', 'https'],
-        }).required(),
+      
     },
     {
       name: 'pdf',

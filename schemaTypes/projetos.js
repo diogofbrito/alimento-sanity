@@ -54,6 +54,27 @@ export default {
       title: 'Descrição',
       type: 'blockContent',
     },
+    {
+      name: 'tipo',
+      title: 'Tipo (Por ex: "Almoço para 4pax", "Instalação Artistica", etc)',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'local',
+      title: 'Local (Se for uma Exposição/Instalação, colocar o nome da galeria, ex: "Galeria Monumental, Lisboa")',
+      type: 'string',
+    },
+    {
+      name: 'cliente',
+      title: 'Cliente (Nome do cliente, se existir)',
+      type: 'string',
+    },
+    {
+      name: 'creditos',
+      title: 'Créditos (Por ex, nome do fotógrafo, etc)',
+      type: 'string',
+    },
   ],
   orderings: [
     {

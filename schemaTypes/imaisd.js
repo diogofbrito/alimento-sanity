@@ -19,6 +19,12 @@ export default {
       options: {hotspot: true},
     },
     {
+      name: 'coverImage2',
+      title: 'Imagem conteudo da publicação (2) - hover',
+      type: 'image',
+      options: {hotspot: true},
+    },
+    {
       name: 'pdf',
       title: 'PDF da publicação',
       type: 'file',

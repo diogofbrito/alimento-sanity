@@ -8,8 +8,11 @@ export default {
   },
 
   fields: [
-    
-    
+    {
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    },
     {
       name: 'content',
       title: 'Content',

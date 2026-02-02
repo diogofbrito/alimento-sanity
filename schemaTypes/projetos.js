@@ -74,15 +74,31 @@ export default {
 
     {
       name: 'pdf',
-      title: 'PDF da publicação',
-      type: 'file',
-      options: {
-        accept: 'application/pdf',
-      },
+      title: 'PDF (opcional)',
+      type: 'object',
+      fields: [
+        {
+          name: 'title',
+          title: 'Título do PDF (ex: "Folha de sala da exposição")',
+          type: 'string',
+        },
+        {
+          name: 'file',
+          title: 'Ficheiro PDF',
+          type: 'file',
+          options: {accept: 'application/pdf'},
+        },
+      ],
     },
+
     {
       name: 'cliente',
       title: 'Cliente (Nome do cliente, se existir)',
+      type: 'string',
+    },
+    {
+      name: 'agradecimentos',
+      title: 'Adicionar agradecimentos',
       type: 'string',
     },
     {

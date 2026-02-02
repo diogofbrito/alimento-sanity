@@ -20,6 +20,11 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'data',
+      title: 'Colocar data segundo este formato ex: "25 Jan a 22 Fev"',
+      type: 'string',
+    },
+    {
       name: 'year',
       title: 'Ano',
       type: 'number',
@@ -62,8 +67,18 @@ export default {
     },
     {
       name: 'local',
-      title: 'Local (Se for uma Exposição/Instalação, colocar o nome da galeria, ex: "Galeria Monumental, Lisboa")',
+      title:
+        'Local (Se for uma Exposição/Instalação, colocar o nome da galeria, ex: "Galeria Monumental, Lisboa")',
       type: 'string',
+    },
+
+    {
+      name: 'pdf',
+      title: 'PDF da publicação',
+      type: 'file',
+      options: {
+        accept: 'application/pdf',
+      },
     },
     {
       name: 'cliente',

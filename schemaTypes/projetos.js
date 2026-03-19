@@ -2,17 +2,34 @@ export default {
   name: 'projetos',
   title: 'Projetos Multisensoriais',
   type: 'document',
+  groups: [
+    {
+      name: 'principal',
+      title: 'Secção 1 · Principal',
+      
+    },
+    {
+      name: 'infosDestaque',
+      title: 'Secção 2 · Infos com mais destaque',
+    },
+    {
+      name: 'infosSecundarias',
+      title: 'Secção 3 · Infos secundárias',
+    },
+  ],
   fields: [
     {
       name: 'title',
       title: 'Título',
       type: 'string',
+      group: 'principal',
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      group: 'principal',
       options: {
         source: 'title',
         maxLength: 96,
@@ -20,24 +37,20 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'data',
-      title: 'Colocar data segundo este formato ex: "25 Jan a 22 Fev"',
-      type: 'string',
-    },
-    {
-      name: 'year',
-      title: 'Ano',
-      type: 'number',
-      validation: (Rule) =>
-        Rule.required()
-          .min(1900)
-          .max(new Date().getFullYear() + 1)
-          .error('Por favor insere um ano válido.'),
+      name: 'gallery',
+      title: 'Galeria de Imagens',
+      type: 'array',
+      group: 'principal',
+      of: [{type: 'image'}],
+      options: {
+        layout: 'grid',
+      },
     },
     {
       name: 'hoverPair',
       title: 'Imagens para Hover (2 imagens)',
       type: 'array',
+      group: 'principal',
       of: [{type: 'image', options: {hotspot: true}}],
       validation: (Rule) =>
         Rule.required().min(2).max(2).error('Deves escolher exatamente 2 imagens.'),
@@ -46,65 +59,161 @@ export default {
       },
     },
     {
-      name: 'gallery',
-      title: 'Galeria de Imagens',
-      type: 'array',
-      of: [{type: 'image'}],
-      options: {
-        layout: 'grid',
-      },
-    },
-    {
       name: 'description',
       title: 'Descrição',
       type: 'blockContent',
+      group: 'principal',
     },
     {
-      name: 'tipo',
-      title: 'Tipo (Por ex: "Almoço para 4pax", "Instalação Artistica", etc)',
+      name: 'data',
+      title: 'Data',
+      description: 'Ex: 25 Janeiro a 22 Fevereiro',
       type: 'string',
+      group: 'infosDestaque',
+    },
+    {
+      name: 'year',
+      title: 'Ano',
+      type: 'number',
+      group: 'infosDestaque',
+      validation: (Rule) =>
+        Rule.required()
+          .min(1900)
+          .max(new Date().getFullYear() + 1)
+          .error('Por favor insere um ano válido.'),
+    },
+
+    {
+      name: 'tipo',
+      title: 'Tipo de Projeto (Por ex: "Almoço para 4pax", "Instalação Artistica", etc)',
+      type: 'string',
+      group: 'infosDestaque',
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'local',
-      title:
+      title: 'Local',
+      description:
         'Local (Se for uma Exposição/Instalação, colocar o nome da galeria, ex: "Galeria Monumental, Lisboa")',
       type: 'string',
+      group: 'infosDestaque',
     },
-
     {
-      name: 'pdf',
-      title: 'PDF (opcional)',
-      type: 'object',
-      fields: [
+      name: 'creditos',
+      title: 'Créditos',
+      description: 'Créditos das fotografias do projeto',
+      type: 'string',
+      group: 'infosDestaque',
+    },
+    {
+      name: 'cliente',
+      title: 'Cliente (Nome do cliente, se existir)',
+      type: 'string',
+      group: 'infosDestaque',
+    },
+    {
+      name: 'fichaTecnica',
+      title: 'Ficha técnica',
+      type: 'array',
+      group: 'infosSecundarias',
+      of: [
         {
-          name: 'title',
-          title: 'Título do PDF (ex: "Folha de sala da exposição")',
-          type: 'string',
-        },
-        {
-          name: 'file',
-          title: 'Ficheiro PDF',
-          type: 'file',
-          options: {accept: 'application/pdf'},
+          type: 'object',
+          name: 'fichaTecnicaItem',
+          title: 'Item da ficha técnica',
+          fields: [
+            {
+              name: 'titulo',
+              title: 'Título',
+              type: 'string',
+              description: 'Ex: Produção, Curadoria, Fotografia',
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'conteudo',
+              title: 'Conteúdo',
+              type: 'text',
+              rows: 3,
+              description: 'Ex: Maria Amélia',
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: {
+              title: 'titulo',
+              subtitle: 'conteudo',
+            },
+          },
         },
       ],
     },
 
     {
-      name: 'cliente',
-      title: 'Cliente (Nome do cliente, se existir)',
-      type: 'string',
+      name: 'links',
+      title: 'Links e ficheiros',
+      type: 'object',
+      group: 'infosSecundarias',
+      fields: [
+        {
+          name: 'pdf',
+          title: 'PDF (opcional)',
+          type: 'object',
+          fields: [
+            {
+              name: 'title',
+              title: 'Título do PDF',
+              description: 'Sempre que for um PDF, o titulo deverá sempre começar com "PDF" ex: "PDF - Folha de sala da exposição',
+              type: 'string',
+            },
+            {
+              name: 'file',
+              title: 'Ficheiro PDF',
+              type: 'file',
+              options: {accept: 'application/pdf'},
+            },
+          ],
+        },
+        {
+          name: 'urls',
+          title: 'Links URL',
+          type: 'array',
+          of: [
+            {
+              type: 'object',
+              name: 'urlItem',
+              title: 'Link',
+              fields: [
+                {
+                  name: 'title',
+                  title: 'Título',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                },
+                {
+                  name: 'url',
+                  title: 'URL',
+                  type: 'url',
+                  validation: (Rule) => Rule.required(),
+                },
+              ],
+              preview: {
+                select: {
+                  title: 'title',
+                  subtitle: 'url',
+                },
+              },
+            },
+          ],
+        },
+      ],
     },
+
     {
       name: 'agradecimentos',
-      title: 'Adicionar agradecimentos',
+      title: 'Agradecimentos',
+      description: 'Adicionar nomes para os agradecimentos separados com vírgulas',
       type: 'string',
-    },
-    {
-      name: 'creditos',
-      title: 'Créditos (Por ex, nome do fotógrafo, etc)',
-      type: 'string',
+      group: 'infosSecundarias',
     },
   ],
   orderings: [

@@ -6,7 +6,6 @@ export default {
     {
       name: 'principal',
       title: 'Secção 1 · Principal',
-      
     },
     {
       name: 'infosDestaque',
@@ -155,21 +154,44 @@ export default {
       group: 'infosSecundarias',
       fields: [
         {
-          name: 'pdf',
-          title: 'PDF (opcional)',
-          type: 'object',
-          fields: [
+          name: 'pdfs',
+          title: 'PDFs',
+          type: 'array',
+          of: [
             {
-              name: 'title',
-              title: 'Título do PDF',
-              description: 'Sempre que for um PDF, o titulo deverá sempre começar com "PDF" ex: "PDF - Folha de sala da exposição',
-              type: 'string',
-            },
-            {
-              name: 'file',
-              title: 'Ficheiro PDF',
-              type: 'file',
-              options: {accept: 'application/pdf'},
+              type: 'object',
+              name: 'pdfItem',
+              title: 'PDF',
+              fields: [
+                {
+                  name: 'title',
+                  title: 'Título do PDF',
+                  description:
+                    'Sempre que for um PDF, o título deverá começar com "PDF", ex: "PDF - Folha de sala da exposição"',
+                  type: 'string',
+                  validation: (Rule) => Rule.required(),
+                },
+                {
+                  name: 'file',
+                  title: 'Ficheiro PDF',
+                  type: 'file',
+                  options: {accept: 'application/pdf'},
+                  validation: (Rule) => Rule.required(),
+                },
+              ],
+              preview: {
+                select: {
+                  title: 'title',
+                  media: 'file',
+                },
+                prepare({title, media}) {
+                  return {
+                    title: title || 'PDF sem título',
+                    subtitle: 'Documento PDF',
+                    media,
+                  }
+                },
+              },
             },
           ],
         },

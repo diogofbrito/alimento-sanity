@@ -21,6 +21,15 @@ export default {
     },
 
     {
+      name: 'order',
+      title: 'Ordem',
+      type: 'number',
+      description: 'Número de ordem. Ex: 10 = mais recente, 1 = mais antigo.',
+      validation: (Rule) =>
+        Rule.required().integer().positive().error('Insere um número inteiro maior que 0.'),
+    },
+
+    {
       name: 'placeholderImage',
       title: 'Imagem Placeholder',
       type: 'image',
@@ -30,7 +39,6 @@ export default {
       name: 'link',
       title: 'Link',
       type: 'url',
-      
     },
     {
       name: 'pdf',
@@ -42,18 +50,33 @@ export default {
     },
   ],
 
+  orderings: [
+    {
+      title: 'Ordem (mais recente → mais antigo)',
+      name: 'orderDesc',
+      by: [{field: 'order', direction: 'desc'}],
+    },
+    {
+      title: 'Ordem (mais antigo → mais recente)',
+      name: 'orderAsc',
+      by: [{field: 'order', direction: 'asc'}],
+    },
+  ],
+
   preview: {
     select: {
       title: 'title',
       media: 'placeholderImage',
       year: 'year',
+      order: 'order',
     },
     prepare(selection) {
-      const {title, media, year} = selection
+      const {title, media, year, order} = selection
       return {
-        title: title,
-        subtitle: year ? ` ${year}` : 'Sem ano definido',
-        media: media,
+        title,
+        subtitle:
+          year && order ? `${year} · ordem ${order}` : year ? `${year}` : 'Sem ano definido',
+        media,
       }
     },
   },

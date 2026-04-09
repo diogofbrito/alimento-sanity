@@ -3,7 +3,12 @@ export default {
   title: 'I + D',
   type: 'document',
   fields: [
-    {name: 'title', title: 'Título', type: 'string', validation: (Rule) => Rule.required()},
+    {
+      name: 'title',
+      title: 'Título',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    },
     {
       name: 'slug',
       title: 'Slug',
@@ -11,7 +16,32 @@ export default {
       options: {source: 'title', maxLength: 96},
       validation: (Rule) => Rule.required(),
     },
-    {name: 'year', title: 'Ano', type: 'number'},
+    {
+      name: 'year',
+      title: 'Ano',
+      type: 'number',
+    },
+    {
+      name: 'tag',
+      title: 'Tag',
+      description: 'Palavras-chave do projeto. Ex.: "Publicação", "Tese", "Edição Limitada", etc. Máximo 2 palavras e 25 caracteres no total.',
+      type: 'string',
+      validation: (Rule) =>
+        Rule.required()
+          .max(25)
+          .custom((value) => {
+            if (!value) return true
+
+            const trimmed = value.trim()
+            const words = trimmed.split(/\s+/).filter(Boolean)
+
+            if (words.length > 2) {
+              return 'A tag pode ter no máximo 2 palavras.'
+            }
+
+            return true
+          }),
+    },
     {
       name: 'coverImage',
       title: 'Imagem de capa da publicação',
@@ -32,7 +62,6 @@ export default {
         accept: 'application/pdf',
       },
     },
-
     {
       name: 'gallery',
       title: 'Galeria (imagem + ingredientes)',
@@ -74,14 +103,21 @@ export default {
       ],
       options: {layout: 'grid'},
     },
-
-    {name: 'description', title: 'Descrição', type: 'blockContent'},
+    {
+      name: 'description',
+      title: 'Descrição',
+      type: 'blockContent',
+    },
   ],
 
   preview: {
-    select: {title: 'title', media: 'gallery.0.image', year: 'year'},
-    prepare({title, media, year}) {
-      return {title, subtitle: year ? `${year}` : 'Sem ano definido', media}
+    select: {title: 'title', media: 'gallery.0.image', year: 'year', tag: 'tag'},
+    prepare({title, media, year, tag}) {
+      return {
+        title,
+        subtitle: [year ? `${year}` : 'Sem ano definido', tag].filter(Boolean).join(' · '),
+        media,
+      }
     },
   },
 }

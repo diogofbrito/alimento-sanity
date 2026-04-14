@@ -24,7 +24,7 @@ export default {
     {
       name: 'tag',
       title: 'Tag',
-      description: 'Palavras-chave do projeto. Ex.: "Publicação", "Tese", "Edição Limitada", etc. Máximo 2 palavras e 25 caracteres no total.',
+      description: 'Palavras-chave do projeto. Ex.: "Publicação", "Tese", "Edição Limitada", "Work in progress", etc. Máximo 3 palavras e 25 caracteres no total.',
       type: 'string',
       validation: (Rule) =>
         Rule.required()
@@ -35,8 +35,8 @@ export default {
             const trimmed = value.trim()
             const words = trimmed.split(/\s+/).filter(Boolean)
 
-            if (words.length > 2) {
-              return 'A tag pode ter no máximo 2 palavras.'
+            if (words.length > 3) {
+              return 'A tag pode ter no máximo 3 palavras.'
             }
 
             return true

@@ -74,9 +74,10 @@ export default {
       name: 'sortDate',
       title: 'Data de ordenação',
       description:
-        'Usada apenas para ordenar. Em intervalos, usar a data de início. Se só houver mês, usar o dia 01.',
+        'Usada para ordenar projetos. Em houver intervalo de tempo, usar a data de início. Se só houver mês, usar o dia 01.',
       type: 'date',
       group: 'infosDestaque',
+
       options: {
         dateFormat: 'YYYY-MM-DD',
       },

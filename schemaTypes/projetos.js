@@ -71,6 +71,17 @@ export default {
       group: 'infosDestaque',
     },
     {
+      name: 'sortDate',
+      title: 'Data de ordenação',
+      description:
+        'Usada apenas para ordenar. Em intervalos, usar a data de início. Se só houver mês, usar o dia 01.',
+      type: 'date',
+      group: 'infosDestaque',
+      options: {
+        dateFormat: 'YYYY-MM-DD',
+      },
+    },
+    {
       name: 'year',
       title: 'Ano',
       type: 'number',
@@ -235,20 +246,26 @@ export default {
       title: 'Agradecimentos',
       description: 'Adicionar nomes para os agradecimentos separados com vírgulas',
       type: 'text',
-      rows:4,
+      rows: 4,
       group: 'infosSecundarias',
     },
   ],
   orderings: [
     {
-      title: 'Ano (mais recente → mais antigo)',
-      name: 'yearDesc',
-      by: [{field: 'year', direction: 'desc'}],
+      title: 'Mais recente → mais antigo',
+      name: 'dateDesc',
+      by: [
+        {field: 'year', direction: 'desc'},
+        {field: 'sortDate', direction: 'desc'},
+      ],
     },
     {
-      title: 'Ano (mais antigo → mais recente)',
-      name: 'yearAsc',
-      by: [{field: 'year', direction: 'asc'}],
+      title: 'Mais antigo → mais recente',
+      name: 'dateAsc',
+      by: [
+        {field: 'year', direction: 'asc'},
+        {field: 'sortDate', direction: 'asc'},
+      ],
     },
   ],
 

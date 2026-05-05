@@ -25,6 +25,13 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'titleEN',
+      title: 'Título ENG',
+      type: 'string',
+      group: 'principal',
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -64,9 +71,22 @@ export default {
       group: 'principal',
     },
     {
+      name: 'descriptionEN',
+      title: 'Descrição ENG',
+      type: 'blockContent',
+      group: 'principal',
+    },
+    {
       name: 'data',
       title: 'Data',
       description: 'Ex: 25 Janeiro a 22 Fevereiro',
+      type: 'string',
+      group: 'infosDestaque',
+    },
+    {
+      name: 'dataEN',
+      title: 'Data ENG',
+      description: 'Ex: 25 January to 22 February',
       type: 'string',
       group: 'infosDestaque',
     },
@@ -102,10 +122,22 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'tipoEN',
+      title: 'Tipo de Projeto ENG',
+      type: 'string',
+      group: 'infosDestaque',
+    },
+    {
       name: 'local',
       title: 'Local',
       description:
         'Local (Se for uma Exposição/Instalação, colocar o nome da galeria, ex: "Galeria Monumental, Lisboa")',
+      type: 'string',
+      group: 'infosDestaque',
+    },
+    {
+      name: 'localEN',
+      title: 'Local ENG',
       type: 'string',
       group: 'infosDestaque',
     },
@@ -117,8 +149,20 @@ export default {
       group: 'infosDestaque',
     },
     {
+      name: 'creditosEN',
+      title: 'Créditos ENG',
+      type: 'string',
+      group: 'infosDestaque',
+    },
+    {
       name: 'cliente',
       title: 'Cliente (Nome do cliente, se existir)',
+      type: 'string',
+      group: 'infosDestaque',
+    },
+    {
+      name: 'clienteEN',
+      title: 'Cliente ENG',
       type: 'string',
       group: 'infosDestaque',
     },
@@ -141,12 +185,24 @@ export default {
               validation: (Rule) => Rule.required(),
             },
             {
+              name: 'tituloEN',
+              title: 'Título ENG',
+              type: 'string',
+              description: 'Ex: Production, Curatorship, Photography',
+            },
+            {
               name: 'conteudo',
               title: 'Conteúdo',
               type: 'text',
               rows: 3,
               description: 'Ex: Maria Amélia',
               validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'conteudoEN',
+              title: 'Conteúdo ENG',
+              type: 'text',
+              rows: 3,
             },
           ],
           preview: {
@@ -182,6 +238,12 @@ export default {
                     'Sempre que for um PDF, o título deverá começar com "PDF", ex: "PDF - Folha de sala da exposição"',
                   type: 'string',
                   validation: (Rule) => Rule.required(),
+                },
+                {
+                  name: 'titleEN',
+                  title: 'Título do PDF ENG',
+                  description: 'Ex: "PDF - Exhibition handout"',
+                  type: 'string',
                 },
                 {
                   name: 'file',
@@ -224,6 +286,11 @@ export default {
                   validation: (Rule) => Rule.required(),
                 },
                 {
+                  name: 'titleEN',
+                  title: 'Título ENG',
+                  type: 'string',
+                },
+                {
                   name: 'url',
                   title: 'URL',
                   type: 'url',
@@ -246,6 +313,13 @@ export default {
       name: 'agradecimentos',
       title: 'Agradecimentos',
       description: 'Adicionar nomes para os agradecimentos separados com vírgulas',
+      type: 'text',
+      rows: 4,
+      group: 'infosSecundarias',
+    },
+    {
+      name: 'agradecimentosEN',
+      title: 'Agradecimentos ENG',
       type: 'text',
       rows: 4,
       group: 'infosSecundarias',

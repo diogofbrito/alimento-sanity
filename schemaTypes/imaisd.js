@@ -10,6 +10,12 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'titleEN',
+      title: 'Título ENG',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
@@ -24,7 +30,8 @@ export default {
     {
       name: 'tag',
       title: 'Tag',
-      description: 'Palavras-chave do projeto. Ex.: "Publicação", "Tese", "Edição Limitada", "Work in progress", etc. Máximo 3 palavras e 25 caracteres no total.',
+      description:
+        'Palavras-chave do projeto. Ex.: "Publicação", "Tese", "Edição Limitada", "Work in progress", etc. Máximo 3 palavras e 25 caracteres no total.',
       type: 'string',
       validation: (Rule) =>
         Rule.required()
@@ -41,6 +48,26 @@ export default {
 
             return true
           }),
+    },
+    {
+      name: 'tagEN',
+      title: 'Tag ENG',
+      description:
+        'Project keywords. Example: "Publication", "Thesis", "Limited Edition", "Work in progress", etc. Maximum 3 words and 25 characters total.',
+      type: 'string',
+      validation: (Rule) =>
+        Rule.max(25).custom((value) => {
+          if (!value) return true
+
+          const trimmed = value.trim()
+          const words = trimmed.split(/\s+/).filter(Boolean)
+
+          if (words.length > 3) {
+            return 'The tag can have a maximum of 3 words.'
+          }
+
+          return true
+        }),
     },
     {
       name: 'coverImage',
@@ -84,6 +111,11 @@ export default {
               title: 'Título desta imagem',
               type: 'blockContent',
             },
+            {
+              name: 'titleEN',
+              title: 'Título desta imagem ENG',
+              type: 'blockContent',
+            },
           ],
           preview: {
             select: {media: 'image', title: 'title'},
@@ -102,11 +134,6 @@ export default {
         },
       ],
       options: {layout: 'grid'},
-    },
-    {
-      name: 'description',
-      title: 'Descrição',
-      type: 'blockContent',
     },
   ],
 

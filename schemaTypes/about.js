@@ -19,5 +19,11 @@ export default {
       type: 'array',
       of: [{type: 'block'}],
     },
+    {
+      name: 'contentEN',
+      title: 'Content ENG',
+      type: 'array',
+      of: [{type: 'block'}],
+    },
   ],
 }

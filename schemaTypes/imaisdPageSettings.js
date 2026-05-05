@@ -15,7 +15,11 @@ export default {
       title: 'Texto descritivo',
       type: 'blockContent',
     },
-    
+    {
+      name: 'introTextEN',
+      title: 'Texto descritivo ENG',
+      type: 'blockContent',
+    },
   ],
   preview: {
     prepare() {
